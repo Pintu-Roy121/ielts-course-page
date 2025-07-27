@@ -11,34 +11,16 @@ import ChecklistSection from '@/components/ChecklistSection';
 import PriceCard from '@/components/PriceCard';
 import { Star, Phone } from 'lucide-react';
 import { TProduct } from '@/types/type';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export default function ProductPage() {
   const [productData, setProductData] = useState<TProduct | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
- useEffect(() => {
-    const currentLang = searchParams.get('lang');
-    const newParams = new URLSearchParams(searchParams.toString());
-
-    if (!currentLang || (currentLang !== 'en' && currentLang !== 'bn')) {
-      newParams.set('lang', 'en'); 
-      router.replace(`${pathname}?${newParams.toString()}`);
-    }
-  }, [searchParams, pathname, router]);
-
 
   useEffect(() => {
-     const currentLang = searchParams.get('lang') as 'en' | 'bn' | null;
-
-    if (!currentLang) return;
     const loadData = async () => {
       try {
-        const data = await fetchProductData("ielts-course", currentLang);
+        const data = await fetchProductData();
         setProductData(data);
       } catch (error) {
         console.log(error);
@@ -48,7 +30,7 @@ export default function ProductPage() {
     };
 
     loadData();
-  }, [searchParams]);
+  }, []);
 
   if (loading) {
     return (

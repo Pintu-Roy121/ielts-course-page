@@ -1,3 +1,5 @@
+
+
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { User } from 'lucide-react';
@@ -8,6 +10,8 @@ interface InstructorCardProps {
 }
 
 const InstructorCard: React.FC<InstructorCardProps> = ({ productData }:InstructorCardProps) => {
+
+
   const { sections } = productData;
 
     const instructorSection = sections?.find(s => s.type === 'instructors');
